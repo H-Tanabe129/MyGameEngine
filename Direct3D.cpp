@@ -12,6 +12,7 @@ namespace Direct3D
 
 	ID3D11VertexShader*	pVertexShader = nullptr;	//頂点シェーダー
 	ID3D11PixelShader*	pPixelShader = nullptr;		//ピクセルシェーダー
+	ID3D11RasterizerState* pRasterizerState = nullptr;	//ラスタライザー
 	ID3D11InputLayout*	pVertexLayout = nullptr;	//頂点インプットレイアウト
 }
 
@@ -97,6 +98,7 @@ void Direct3D::InitShader()
 	D3DCompileFromFile(L"Simple3D.hlsl", nullptr, nullptr, "VS", "vs_5_0", NULL, 0, &pCompileVS, NULL);
 	pDevice->CreateVertexShader(pCompileVS->GetBufferPointer(), pCompileVS->GetBufferSize(), NULL, &pVertexShader);	
 	
+
 	//頂点インプットレイアウト
 	D3D11_INPUT_ELEMENT_DESC layout[] = {
 		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0,  D3D11_INPUT_PER_VERTEX_DATA, 0 },	//位置
@@ -111,6 +113,20 @@ void Direct3D::InitShader()
 	D3DCompileFromFile(L"Simple3D.hlsl", nullptr, nullptr, "PS", "ps_5_0", NULL, 0, &pCompilePS, NULL);
 	pDevice->CreatePixelShader(pCompilePS->GetBufferPointer(), pCompilePS->GetBufferSize(), NULL, &pPixelShader);
 	pCompilePS->Release();
+
+
+	//ラスタライザ作成
+	D3D11_RASTERIZER_DESC rdc = {};
+	rdc.CullMode = D3D11_CULL_BACK;
+	rdc.FillMode = D3D11_FILL_SOLID;
+	rdc.FrontCounterClockwise = FALSE;
+	pDevice->CreateRasterizerState(&rdc, &pRasterizerState);
+
+	//それぞれをデバイスコンテキストにセット
+	pContext->VSSetShader(pVertexShader, NULL, 0);	//頂点シェーダー
+	pContext->PSSetShader(pPixelShader, NULL, 0);	//ピクセルシェーダー
+	pContext->IASetInputLayout(pVertexLayout);	//頂点インプットレイアウト
+	pContext->RSSetState(pRasterizerState);		//ラスタライザー
 }
 
 
@@ -136,6 +152,12 @@ void Direct3D::EndDraw()
 //解放処理
 void Direct3D::Release()
 {
+	pRasterizerState->Release();
+	pVertexLayout->Release();
+	pPixelShader->Release();
+	pVertexShader->Release();
+
+
 	pRenderTargetView->Release();
 	pSwapChain->Release();
 	pContext->Release();

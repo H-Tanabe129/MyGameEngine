@@ -8,6 +8,8 @@
 
 namespace Direct3D
 {
+	extern ID3D11Device*           pDevice;
+
 	//‰Šú‰»
 	void Initialize(int winW, int winH, HWND hWnd);
 
