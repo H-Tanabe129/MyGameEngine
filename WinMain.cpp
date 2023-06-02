@@ -56,11 +56,21 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 
 	//ウィンドウを表示
 	ShowWindow(hWnd, nCmdShow);
+
+	HRESULT hr;
+	//Direct3D初期化
+	hr = Direct3D::Initialize(winW, winH, hWnd);
+	if (FAILED(hr))
+	{
+		PostQuitMessage(0);  //プログラム終了
+	}
 	Quad* pQuad = new Quad;
 
-	//Direct3D初期化
-	Direct3D::Initialize(winW, winH, hWnd);
-	pQuad->Initialize();
+	hr = pQuad->Initialize();
+	if (FAILED(hr))
+	{
+		PostQuitMessage(0);  //プログラム終了
+	}
 
 	//メッセージループ（何か起きるのを待つ）
 	MSG msg;
