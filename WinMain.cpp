@@ -63,17 +63,17 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 	hr = Direct3D::Initialize(winW, winH, hWnd);
 	if (FAILED(hr))
 	{
-		PostQuitMessage(0);  //プログラム終了
+		PostQuitMessage(0);  //エラー起きたらプログラム終了
 	}
-	Quad* pQuad = new Quad;
 
-	hr = pQuad->Initialize();
-	if (FAILED(hr))
-	{
-		PostQuitMessage(0);  //プログラム終了
-	}
-	
 	Camera::Initialize();
+	
+	//test
+	//Camera::SetTarget(XMFLOAT3(2, 0, 0));
+	//Camera::SetPosition(XMFLOAT3(0, 0, 0));
+
+	Quad* pQuad = new Quad;
+	pQuad->Initialize();
 
 	//メッセージループ（何か起きるのを待つ）
 	MSG msg;
@@ -93,9 +93,16 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 			//ゲームの処理
 			Camera::Update();
 			Direct3D::BeginDraw();
-			pQuad->Draw();
 			
 			//描画処理
+			static int a = 0;
+			a += 1;
+			XMMATRIX matR = XMMatrixRotationZ(XMConvertToRadians(a));  //回転行列
+			//XMMATRIX matT = XMMatrixTranslation(3, 0, 0);  //移動行列
+			//XMMATRIX matS = XMMatrixScaling(1, 3, 1);  //拡大行列
+			XMMATRIX mat = matR;
+
+			pQuad->Draw(mat);
 			Direct3D::EndDraw();
 		}
 	}
