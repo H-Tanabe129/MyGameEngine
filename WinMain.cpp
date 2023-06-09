@@ -97,7 +97,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 			//•`‰æˆ—
 			static int a = 0;
 			a += 1;
-			XMMATRIX matR = XMMatrixRotationZ(XMConvertToRadians(a));  //‰ñ“]s—ñ
+			XMMATRIX matR = XMMatrixRotationY(XMConvertToRadians(a));  //‰ñ“]s—ñ
 			//XMMATRIX matT = XMMatrixTranslation(3, 0, 0);  //ˆÚ“®s—ñ
 			//XMMATRIX matS = XMMatrixScaling(1, 3, 1);  //Šg‘ås—ñ
 			XMMATRIX mat = matR;
