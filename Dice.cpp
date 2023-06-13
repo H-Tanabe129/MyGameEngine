@@ -15,7 +15,7 @@ HRESULT Dice::Initialize()
 {
 	HRESULT hr;
 	// 頂点情報
-	VERTEX vertices[/*4*/] =
+	VERTEX vertices[] =
 	{
 		//正面
 		//XMVectorSet(0.0f, 2.0f, 0.0f, 0.0f),	// 四角形の頂点（上）
