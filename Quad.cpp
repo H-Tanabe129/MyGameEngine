@@ -15,16 +15,14 @@ HRESULT Quad::Initialize()
 {
 	HRESULT hr;
 	// 頂点情報
-	VERTEX vertices[]{
-		{} };
-	// =
-	//{
-	//	{XMVectorSet(-1.0f,  1.0f, 0.0f, 0.0f), XMVectorSet(0.0f, 0.0f, 0.0f, 0.0f)},	// 四角形の頂点（左上）
-	//	//XMVectorSet(0.0f, 2.0f, 0.0f, 0.0f),	// 四角形の頂点（上）
-	//	{XMVectorSet(1.0f,  1.0f, 0.0f, 0.0f), XMVectorSet(1.0f, 0.0f, 0.0f, 0.0f)},	// 四角形の頂点（右上）
-	//	{XMVectorSet(1.0f, -1.0f, 0.0f, 0.0f), XMVectorSet(1.0f, 1.0f, 0.0f, 0.0f)},	// 四角形の頂点（右下）
-	//	{XMVectorSet(-1.0f, -1.0f, 0.0f, 0.0f),	XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f)},	// 四角形の頂点（左下）		
-	//};
+	VERTEX vertices[] =
+	{
+		//XMVectorSet(0.0f, 2.0f, 0.0f, 0.0f),	// 四角形の頂点（上）
+		{XMVectorSet(-1.0f,  1.0f, 0.0f, 0.0f), XMVectorSet(0.0f, 0.0f, 0.0f, 0.0f),XMVectorSet(0.0f, 0.0f, -1.0f, 0.0f)},	// 四角形の頂点（左上）
+		{XMVectorSet(1.0f,  1.0f, 0.0f, 0.0f), XMVectorSet(1.0f, 0.0f, 0.0f, 0.0f),XMVectorSet(0.0f, 0.0f, -1.0f, 0.0f)},	// 四角形の頂点（右上）
+		{XMVectorSet(1.0f, -1.0f, 0.0f, 0.0f), XMVectorSet(1.0f, 1.0f, 0.0f, 0.0f),XMVectorSet(0.0f, 0.0f, -1.0f, 0.0f)},	// 四角形の頂点（右下）
+		{XMVectorSet(-1.0f, -1.0f, 0.0f, 0.0f),	XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f),XMVectorSet(0.0f, 0.0f, -1.0f, 0.0f)},	// 四角形の頂点（左下）		
+	};
 
 	// 頂点データ用バッファの設定
 	D3D11_BUFFER_DESC bd_vertex;
@@ -98,15 +96,15 @@ HRESULT Quad::Initialize()
 void Quad::Draw(XMMATRIX& worldMatrix) //& 参照になる
 {
 	//コンスタントバッファに渡す情報
-	//XMVECTOR position = { 0, 3, -10, 0 };	//カメラの位置
-	//XMVECTOR target = { 0, 0, 0, 0 };	//カメラの焦点
-	//XMMATRIX view = XMMatrixLookAtLH(position, target, XMVectorSet(0, 1, 0, 0));	//ビュー行列
-	//XMMATRIX proj = XMMatrixPerspectiveFovLH(XM_PIDIV4/*縦の画角、視野角をﾗｼﾞｱﾝで指定したもの*/, 800.0f / 600.0f, 0.1f, 100.0f);//射影行列
+	XMVECTOR position = { 0, 3, -10, 0 };	//カメラの位置
+	XMVECTOR target = { 0, 0, 0, 0 };	//カメラの焦点
+	XMMATRIX view = XMMatrixLookAtLH(position, target, XMVectorSet(0, 1, 0, 0));	//ビュー行列
+	XMMATRIX proj = XMMatrixPerspectiveFovLH(XM_PIDIV4/*縦の画角、視野角をﾗｼﾞｱﾝで指定したもの*/, 800.0f / 600.0f, 0.1f, 100.0f);//射影行列
 
 	D3D11_MAPPED_SUBRESOURCE pdata;
 	CONSTANT_BUFFER cb;
 	cb.matWVP = XMMatrixTranspose(worldMatrix * Camera::GetViewMatrix() * Camera::GetProjectionMatrix());
-
+	cb.matW = XMMatrixTranspose(worldMatrix);
 	Direct3D::pContext_->Map(pConstantBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &pdata);	// GPUからのデータアクセスを止める
 	memcpy_s(pdata.pData, pdata.RowPitch, (void*)(&cb), sizeof(cb));	// データを値を送る
 	

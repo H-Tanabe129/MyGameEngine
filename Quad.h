@@ -8,13 +8,15 @@ using namespace DirectX;
 //コンスタントバッファー
 struct CONSTANT_BUFFER
 {
-	XMMATRIX	matWVP;		
+	XMMATRIX	matWVP;
+	XMMATRIX	matW;
 };
 
 struct VERTEX
 {
 	XMVECTOR position;
 	XMVECTOR uv;
+	XMVECTOR normal;
 };
 
 class Quad
