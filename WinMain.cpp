@@ -1,8 +1,8 @@
 //インクルード
 #include <Windows.h>
 #include"DIrect3D.h"
-//#include"Dice.h"
-#include"Quad.h"
+#include"Dice.h"
+//#include"Quad.h"
 #include"Camera.h"
 
 //定数宣言
@@ -14,8 +14,8 @@ const int WINDOW_HEIGHT = 600; //ウィンドウの高さ
 //プロトタイプ宣言
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
-Quad* pQuad = new Quad;
-//Dice* pDice = new Dice;
+//Quad* pQuad = new Quad;
+Dice* pDice = new Dice;
 
 //エントリーポイント
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, int nCmdShow)
@@ -74,11 +74,11 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 	//Camera::SetTarget(XMFLOAT3(2, 0, 0));
 	//Camera::SetPosition(XMFLOAT3(0, 0, 0));
 
-	Quad* pQuad = new Quad;
-	pQuad->Initialize();
+	//Quad* pQuad = new Quad;
+	//pQuad->Initialize();
 
-	//Dice* pDice = new Dice;
-	//pDice->Initialize();
+	Dice* pDice = new Dice;
+	pDice->Initialize();
 
 	//メッセージループ（何か起きるのを待つ）
 	MSG msg;
@@ -103,21 +103,21 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 			static float a = 0;
 			a += 0.03;
 			XMMATRIX matR = XMMatrixRotationY(XMConvertToRadians(a));  //回転行列
-			//XMMATRIX matR2 = XMMatrixRotationZ(XMConvertToRadians(a));
+			XMMATRIX matR2 = XMMatrixRotationZ(XMConvertToRadians(a));//
 			//XMMATRIX matT = XMMatrixTranslation(0, 0, 0);  //移動行列
 			//XMMATRIX matS = XMMatrixScaling(1, 3, 1);  //拡大行列
-			XMMATRIX mat = matR;  // * matR2
+			XMMATRIX mat = matR  * matR2; //
 
-			pQuad->Draw(mat);
-			//pDice->Draw(mat);
+			//pQuad->Draw(mat);
+			pDice->Draw(mat);
 			Direct3D::EndDraw();
 		}
 	}
 	Direct3D::Release();
-	SAFE_RELEASE(pQuad);
-	SAFE_DELETE(pQuad);
-	//SAFE_RELEASE(pDice);
-	//SAFE_DELETE(pDice);
+	//SAFE_RELEASE(pQuad);
+	//SAFE_DELETE(pQuad);
+	SAFE_RELEASE(pDice);
+	SAFE_DELETE(pDice);
 
 	return 0;
 
