@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Quad.h"
+//#include "Quad.h"
 #include "Direct3D.h"
 #include "Texture.h"
 #include <DirectXMath.h>

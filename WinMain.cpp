@@ -4,7 +4,7 @@
 #include"Sprite.h"
 #include"Dice.h"
 //#include"Quad.h"
-#include"Transform.h"
+//#include"Transform.h"
 #include"Camera.h"
 
 //定数宣言
@@ -136,15 +136,15 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 
 }
 
-Transform::Transform() : 
-	matTranslate_(XMMatrixIdentity()),
-	matRotate_(XMMatrixIdentity()),
-	matScale_(XMMatrixIdentity()),
-	position_(XMFLOAT3(0, 0, 0)),
-	rotate_(XMFLOAT3(0, 0, 0)),
-	scale_(XMFLOAT3(1, 1, 1))
-{
-}
+//Transform::Transform() : 
+//	matTranslate_(XMMatrixIdentity()),
+//	matRotate_(XMMatrixIdentity()),
+//	matScale_(XMMatrixIdentity()),
+//	position_(XMFLOAT3(0, 0, 0)),
+//	rotate_(XMFLOAT3(0, 0, 0)),
+//	scale_(XMFLOAT3(1, 1, 1))
+//{
+//}
 
 //ウィンドウプロシージャ（何かあった時によばれる関数）
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
