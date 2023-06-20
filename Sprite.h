@@ -55,5 +55,9 @@ private:
 
 	HRESULT CreateConstantBuffer();  //コンスタントバッファ作成
 	HRESULT LoadTexture();  //テクスチャをロード
+	
+	//------------Draw関数から呼ばれる関数-----------------
+	void PassDaraToCB(DirectX::XMMATRIX& worldMatrix);  //コンスタントバッファ作成
+	void SetBufferToPipeline();  //各バッファをパイプライン
 };
 
