@@ -2,15 +2,16 @@
 
 //インクルード
 #include <d3d11.h>
+#include <DirectXMath.h>
+
+#define SAFE_DELETE(p) if(p != nullptr){ delete p; p = nullptr;}
+#define SAFE_RELEASE(p) if(p != nullptr){ p->Release(); p = nullptr;}
+
 //リンカ
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "d3dcompiler.lib")
 
-//#define INIT_VAL 5
-//const int INIT_VAL = 5;
-
-#define SAFE_DELETE(p) if(p != nullptr){ delete p; p = nullptr;}
-#define SAFE_RELEASE(p) if(p != nullptr){ p->Release(); p = nullptr;}
+using namespace DirectX;
 
 enum SHADER_TYPE
 {

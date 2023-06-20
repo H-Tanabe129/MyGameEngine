@@ -1,9 +1,9 @@
 //インクルード
 #include <Windows.h>
 #include"DIrect3D.h"
-#include"Sprite.h"
-#include"Dice.h"
 //#include"Quad.h"
+#include"Dice.h"
+#include"Sprite.h"
 //#include"Transform.h"
 #include"Camera.h"
 
@@ -17,7 +17,7 @@ const int WINDOW_HEIGHT = 600; //ウィンドウの高さ
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 //Quad* pQuad = new Quad;
-Dice* pDice; //= new Dice
+//Dice* pDice; //= new Dice
 //Sprite* pSprite = new Sprite;
 
 //エントリーポイント
@@ -63,8 +63,8 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 	//ウィンドウを表示
 	ShowWindow(hWnd, nCmdShow);
 
-	HRESULT hr;
 	//Direct3D初期化
+	HRESULT hr;
 	hr = Direct3D::Initialize(winW, winH, hWnd);
 	if (FAILED(hr))
 	{
@@ -101,8 +101,8 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 		//メッセージなし
 		else
 		{
-			//ゲームの処理
 			Camera::Update();
+			//ゲームの処理
 			Direct3D::BeginDraw();
 			
 			//描画処理

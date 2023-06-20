@@ -125,6 +125,16 @@ HRESULT Direct3D::Initialize(int winW, int winH, HWND hWnd)
 //シェーダー準備
 HRESULT Direct3D::InitShader()
 {
+	if (FAILED(InitShader3D()))
+	{
+		return E_FAIL;
+	}
+
+	if (FAILED(InitShader2D()))
+	{
+		return E_FAIL;
+	}
+
 	return S_OK;
 }
 
@@ -192,11 +202,11 @@ HRESULT Direct3D::InitShader3D()
 		MessageBox(nullptr, "ラスタライザの作成に失敗しました", "エラー", MB_OK);
 		return hr;
 	}
+	return S_OK;
 }
 
 HRESULT Direct3D::InitShader2D()
 {
-	using namespace Direct3D;
 	HRESULT hr;
 	// 頂点シェーダの作成（コンパイル）
 	ID3DBlob* pCompileVS = nullptr;
@@ -208,6 +218,7 @@ HRESULT Direct3D::InitShader2D()
 	{
 		//エラー処理
 		MessageBox(nullptr, "頂点シェーダの作成に失敗しました", "エラー", MB_OK);
+		SAFE_RELEASE(pCompileVS);
 		return hr;
 	}
 
@@ -240,10 +251,10 @@ HRESULT Direct3D::InitShader2D()
 	{
 		//エラー処理
 		MessageBox(nullptr, "ピクセルシェーダの作成に失敗しました", "エラー", MB_OK);
-		SAFE_RELEASE(pCompilePS);
+		//SAFE_RELEASE(pCompilePS);
 		return hr;
 	}
-	SAFE_RELEASE(pCompilePS);
+	//SAFE_RELEASE(pCompilePS);
 
 
 	//ラスタライザ作成
@@ -258,6 +269,7 @@ HRESULT Direct3D::InitShader2D()
 		MessageBox(nullptr, "ラスタライザの作成に失敗しました", "エラー", MB_OK);
 		return hr;
 	}
+	return S_OK;
 }
 
 void Direct3D::SetShader(SHADER_TYPE type)
