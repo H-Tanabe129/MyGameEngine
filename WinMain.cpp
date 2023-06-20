@@ -4,6 +4,7 @@
 #include"Sprite.h"
 #include"Dice.h"
 //#include"Quad.h"
+#include"Transform.h"
 #include"Camera.h"
 
 //定数宣言
@@ -16,7 +17,7 @@ const int WINDOW_HEIGHT = 600; //ウィンドウの高さ
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 //Quad* pQuad = new Quad;
-//Dice* pDice = new Dice;
+Dice* pDice; //= new Dice
 //Sprite* pSprite = new Sprite;
 
 //エントリーポイント
@@ -123,8 +124,9 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 		}
 	}
 	//SAFE_RELEASE(pQuad);
-	SAFE_RELEASE(pDice);
-	SAFE_RELEASE(pSprite);
+	//SAFE_RELEASE(pDice);
+	//SAFE_RELEASE(pSprite);
+
 	//SAFE_DELETE(pQuad);
 	SAFE_DELETE(pDice);
 	SAFE_DELETE(pSprite);
@@ -133,6 +135,17 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 	return 0;
 
 }
+
+Transform::Transform() : 
+	matTranslate_(XMMatrixIdentity()),
+	matRotate_(XMMatrixIdentity()),
+	matScale_(XMMatrixIdentity()),
+	position_(XMFLOAT3(0, 0, 0)),
+	rotate_(XMFLOAT3(0, 0, 0)),
+	scale_(XMFLOAT3(1, 1, 1))
+{
+}
+
 //ウィンドウプロシージャ（何かあった時によばれる関数）
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
