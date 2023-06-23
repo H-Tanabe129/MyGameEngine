@@ -4,6 +4,7 @@
 //#include"Quad.h"
 #include"Dice.h"
 #include"Sprite.h"
+#include"Fbx.h"
 #include"Transform.h"
 #include"Camera.h"
 
@@ -86,6 +87,9 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 	Sprite* pSprite = new Sprite;
 	pSprite->Initialize();
 
+	Fbx* pFbx = new Fbx;
+	pFbx->Initialize();
+
 	//メッセージループ（何か起きるのを待つ）
 	MSG msg;
 	ZeroMemory(&msg, sizeof(msg));
@@ -109,7 +113,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 			static float angle = 0;
 			angle += 0.03;
 			
-
 			Transform diceTransform;
 			diceTransform.position_.y = 3.0f;
 			diceTransform.rotate_.y = angle;
@@ -121,6 +124,8 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 			spriteTransform.scale_.y = 256.0f / 600.0f;
 			//mat = XMMatrixScaling(512.0f/800.0f, 256.0f/600.0f, 1.0f);
 			pSprite->Draw(spriteTransform);
+
+
 
 			Direct3D::EndDraw();
 		}
