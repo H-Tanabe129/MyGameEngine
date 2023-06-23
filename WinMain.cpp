@@ -108,17 +108,19 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 			//描画処理
 			static float angle = 0;
 			angle += 0.03;
-			XMMATRIX matR = XMMatrixRotationY(XMConvertToRadians(angle));  //回転行列
-			//XMMATRIX matR2 = XMMatrixRotationZ(XMConvertToRadians(angle));//
-			XMMATRIX matT = XMMatrixTranslation(1, 0, 0);  //移動行列
-			XMMATRIX matS = XMMatrixScaling(2, 2, 2);  //拡大行列
-			XMMATRIX mat  = matR * matS * matT; //  //RST
+			
 
-			//pQuad->Draw(mat);
-			pDice->Draw(mat);
+			Transform diceTransform;
+			diceTransform.position_.y = 3.0f;
+			diceTransform.rotate_.y = angle;
+			pDice->Draw(diceTransform);
 
-			mat = XMMatrixScaling(512.0f / 800.0f, 256.0f / 600.0f, 1.0f);
-			pSprite->Draw(mat);
+			////mat = XMMatrixScaling(512.0f / 800.0f, 256.0f / 600.0f, 1.0f);
+			Transform spriteTransform;
+			spriteTransform.scale_.x = 512.0f / 800.0f;
+			spriteTransform.scale_.y = 256.0f / 600.0f;
+			//mat = XMMatrixScaling(512.0f/800.0f, 256.0f/600.0f, 1.0f);
+			pSprite->Draw(spriteTransform);
 
 			Direct3D::EndDraw();
 		}
@@ -136,15 +138,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 
 }
 
-Transform::Transform() : 
-	matTranslate_(XMMatrixIdentity()),
-	matRotate_(XMMatrixIdentity()),
-	matScale_(XMMatrixIdentity()),
-	position_(XMFLOAT3(0, 0, 0)),
-	rotate_(XMFLOAT3(0, 0, 0)),
-	scale_(XMFLOAT3(1, 1, 1))
-{
-}
 
 //ウィンドウプロシージャ（何かあった時によばれる関数）
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
