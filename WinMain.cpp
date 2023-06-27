@@ -19,7 +19,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 //Quad* pQuad = new Quad;
 //Dice* pDice; //= new Dice
-//Sprite* pSprite = new Sprite;
+Fbx* pFbx;
 
 //エントリーポイント
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, int nCmdShow)
@@ -88,7 +88,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 	pSprite->Initialize();
 
 	Fbx* pFbx = new Fbx;
-	pFbx->Initialize();
+	pFbx->Load("Assets/ODEN.fbx");
 
 	//メッセージループ（何か起きるのを待つ）
 	MSG msg;
@@ -114,18 +114,18 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 			angle += 0.03;
 			
 			Transform diceTransform;
-			diceTransform.position_.y = 3.0f;
+			//diceTransform.position_.y = 3.0f;
 			diceTransform.rotate_.y = angle;
-			pDice->Draw(diceTransform);
+			//pDice->Draw(diceTransform);
 
 			////mat = XMMatrixScaling(512.0f / 800.0f, 256.0f / 600.0f, 1.0f);
-			Transform spriteTransform;
-			spriteTransform.scale_.x = 512.0f / 800.0f;
-			spriteTransform.scale_.y = 256.0f / 600.0f;
+			//Transform spriteTransform;
+			//spriteTransform.scale_.x = 512.0f / 800.0f;
+			//spriteTransform.scale_.y = 256.0f / 600.0f;
 			//mat = XMMatrixScaling(512.0f/800.0f, 256.0f/600.0f, 1.0f);
-			pSprite->Draw(spriteTransform);
+			//pSprite->Draw(spriteTransform);
 
-
+			pFbx->Draw(diceTransform);
 
 			Direct3D::EndDraw();
 		}
@@ -137,6 +137,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 	//SAFE_DELETE(pQuad);
 	SAFE_DELETE(pDice);
 	SAFE_DELETE(pSprite);
+	SAFE_DELETE(pFbx);
 	Direct3D::Release();
 
 	return 0;
