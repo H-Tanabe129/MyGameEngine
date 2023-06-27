@@ -82,10 +82,10 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 	//pQuad->Initialize();
 
 	Dice* pDice = new Dice;
-	pDice->Initialize();
+	hr = pDice->Initialize();
 
 	Sprite* pSprite = new Sprite;
-	pSprite->Initialize();
+	hr = pSprite->Initialize();
 
 	Fbx* pFbx = new Fbx;
 	pFbx->Load("Assets/ODEN.fbx");
@@ -130,9 +130,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 			Direct3D::EndDraw();
 		}
 	}
-	//SAFE_RELEASE(pQuad);
-	//SAFE_RELEASE(pDice);
-	//SAFE_RELEASE(pSprite);
 
 	//SAFE_DELETE(pQuad);
 	SAFE_DELETE(pDice);

@@ -16,7 +16,7 @@ class Fbx
 	//マテリアル
 	struct MATERIAL
 	{
-		Texture*	pTexture;
+		Texture*	pTexture_;
 	};
 
 	int vertexCount_;	//頂点数
@@ -32,10 +32,11 @@ class Fbx
 	struct VERTEX
 	{
 		XMVECTOR position;
+		XMVECTOR uv;
 	};
 
 	ID3D11Buffer *pVertexBuffer_;
-	ID3D11Buffer *pIndexBuffer_;
+	ID3D11Buffer **pIndexBuffer_;
 	ID3D11Buffer *pConstantBuffer_;
 	MATERIAL* pMaterialList_;
 
