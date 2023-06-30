@@ -7,6 +7,7 @@
 #include "Sprite.h"
 #include "Transform.h"
 #include "Fbx.h"
+#include "Input.h"
 
 
 //定数宣言
@@ -74,6 +75,9 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 		PostQuitMessage(0); //エラー起きたら強制終了
 	}
 
+	//DirectInputの初期化
+	Input::Initialize(hWnd);
+
 	Camera::Initialize();
 
 
@@ -108,6 +112,13 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 
 			//ゲームの処理
 			Direct3D::BeginDraw();
+			
+			//入力情報の更新
+			Input::Update();
+
+			Direct3D::EndDraw();
+
+		}
 			static float angle = 0;
 			angle += 0.05;
 			//XMMATRIX mat = XMMatrixRotationY(XMConvertToRadians(angle)) * XMMatrixTranslation(0,3,0);
@@ -127,15 +138,17 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 
 			pFbx->Draw(diceTransform);
 			
-
-			Direct3D::EndDraw();
-
+			if (Input::IsKey(DIK_ESCAPE))
+		{
+			PostQuitMessage(0);
 		}
 	}
 	//SAFE_DELETE(pQuad);
 	SAFE_DELETE(pDice);
 	SAFE_DELETE(pSprite);
-
+	SAFE_DELETE(pFbx);
+	Input::Release();
+	
 	Direct3D::Release();
 
 	return 0;
