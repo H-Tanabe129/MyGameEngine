@@ -126,6 +126,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 			//pSprite->Draw(spriteTransform);
 
 			pFbx->Draw(diceTransform);
+			
 
 			Direct3D::EndDraw();
 
