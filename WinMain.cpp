@@ -75,11 +75,10 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 		PostQuitMessage(0); //エラー起きたら強制終了
 	}
 
-	//DirectInputの初期化
-	Input::Initialize(hWnd);
-
 	Camera::Initialize();
 
+	//DirectInputの初期化
+	Input::Initialize(hWnd);
 
 
 	//pQuad = new Quad;
@@ -109,16 +108,14 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 		else
 		{
 			Camera::Update();
-
+			
 			//ゲームの処理
-			Direct3D::BeginDraw();
 			
 			//入力情報の更新
 			Input::Update();
 
-			Direct3D::EndDraw();
-
-		}
+			Direct3D::BeginDraw();
+		
 			static float angle = 0;
 			angle += 0.05;
 			//XMMATRIX mat = XMMatrixRotationY(XMConvertToRadians(angle)) * XMMatrixTranslation(0,3,0);
@@ -137,17 +134,25 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 			//pSprite->Draw(spriteTransform);
 
 			pFbx->Draw(diceTransform);
-			
-			if (Input::IsKey(DIK_ESCAPE))
-		{
-			PostQuitMessage(0);
+
+			Direct3D::EndDraw();
+			if (Input::IsKeyUp(DIK_ESCAPE))
+			{/*
+				static int cnt = 0;
+				cnt++;
+				if (cnt >= 3)
+				{*/
+					PostQuitMessage(0);
+				//}
+			}
 		}
 	}
+	Input::Release();
+	
 	//SAFE_DELETE(pQuad);
 	SAFE_DELETE(pDice);
 	SAFE_DELETE(pSprite);
-	SAFE_DELETE(pFbx);
-	Input::Release();
+	//SAFE_DELETE(pFbx);
 	
 	Direct3D::Release();
 
