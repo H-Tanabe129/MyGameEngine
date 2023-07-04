@@ -120,7 +120,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 			angle += 0.05;
 			//XMMATRIX mat = XMMatrixRotationY(XMConvertToRadians(angle)) * XMMatrixTranslation(0,3,0);
 
-			Transform diceTransform;
+			/*static */Transform diceTransform;
 			diceTransform.position_.y = -2.0f;
 			diceTransform.position_.z = 3.0f;
 			diceTransform.rotate_.y = angle;
@@ -133,6 +133,14 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 			//mat = XMMatrixScaling(512.0f/800.0f, 256.0f/600.0f, 1.0f);
 			//pSprite->Draw(spriteTransform);
 
+			//if (Input::IsKey(DIK_LEFT))
+			//{
+			//	diceTransform.position_.x -= 0.01;
+			//}
+			//if (Input::IsKey(DIK_RIGHT))
+			//{
+			//	diceTransform.position_.x += 0.01;
+			//}
 			pFbx->Draw(diceTransform);
 
 			Direct3D::EndDraw();
@@ -145,6 +153,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 					PostQuitMessage(0);
 				//}
 			}
+
 		}
 	}
 	Input::Release();
@@ -163,10 +172,10 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	switch (msg)
-	{
+	{/*
 	case WM_MOUSEMOVE:
 		Input::SetMousePosition(LOWORD(lParam), HIWORD(lParam));
-		return 0;
+		return 0;*/
 
 	case WM_DESTROY:
 		PostQuitMessage(0);  //ÉvÉçÉOÉâÉÄèIóπ

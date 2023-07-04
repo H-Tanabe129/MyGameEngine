@@ -36,7 +36,7 @@ namespace Input
     bool IsKeyDown(int keyCode)
     {
         //¡‚Í‰Ÿ‚µ‚Ä‚ÄA‘O‰ñ‚Í‰Ÿ‚µ‚Ä‚È‚¢
-        if (keyState[keyCode] && !prevKeyState[keyCode])
+        if (IsKey(keyCode) && !prevKeyState[keyCode] & 0x80)
         {
             return true;
         }
@@ -45,14 +45,14 @@ namespace Input
 
     bool IsKeyUp(int keyCode)
     {
-		if (!keyState[keyCode] && prevKeyState[keyCode])
+		if (!IsKey(keyCode) && prevKeyState[keyCode] & 0x80)
 		{
 			return true;
 		}
 		return false;
     }
 	
-	XMVECTOR GetMousePosition()
+	/*XMVECTOR GetMousePosition()
 	{
 		return mousePosition;
 	}
@@ -60,7 +60,7 @@ namespace Input
 	void SetMousePosition(int x, int y)
 	{
 		mousePosition = XMVectorSet((float)x, (float)y, 0, 0);
-	}
+	}*/
 
 	void Release()
 	{
