@@ -51,6 +51,16 @@ namespace Input
 		}
 		return false;
     }
+	
+	XMVECTOR GetMousePosition()
+	{
+		return mousePosition;
+	}
+
+	void SetMousePosition(int x, int y)
+	{
+		mousePosition = XMVectorSet((float)x, (float)y, 0, 0);
+	}
 
 	void Release()
 	{
