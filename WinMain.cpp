@@ -3,7 +3,9 @@
 #include "Engine/Direct3D.h"
 #include "Engine/Camera.h"
 #include "Engine/Input.h"
+#include "Engine/RootJob.h" 
 
+Rootjob* pRootJob = nullptr;
 
 //定数宣言
 const char* WIN_CLASS_NAME = "SampleGame";  //ウィンドウクラス名
@@ -70,6 +72,9 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 	//DirectInputの初期化
 	Input::Initialize(hWnd);
 
+	//ルートジョブからすべてのオブジェクトのドローを呼ぶ
+	pRootJob->Initilize();
+
 	//メッセージループ（何か起きるのを待つ）
 	MSG msg;
 	ZeroMemory(&msg, sizeof(msg));
@@ -89,13 +94,14 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 			Camera::Update();
 		
 			//入力情報の更新
+			pRootJob->Update();
 			Input::Update();
 
 			//▽描画
 			Direct3D::BeginDraw();
 			
 			Direct3D::EndDraw();
-
+			
 		}
 	}
 	Input::Release();

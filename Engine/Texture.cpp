@@ -1,5 +1,5 @@
 #include "Texture.h"
-#include "DIrect3D.h"
+#include "Direct3D.h"
 #include <wincodec.h>
 
 
