@@ -1,15 +1,17 @@
 #pragma once
 #include "Engine/GameObject.h"
 
+class Fbx;  //前方宣言
 
-//Playシーンを管理するクラス
-class PlayScene : public GameObject
+class Player :
+    public GameObject
 {
 	Fbx* pFbx;
 public:
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）
-	PlayScene(GameObject* parent);
+	Player(GameObject* parent);
+	~Player();
 
 	//初期化
 	void Initialize() override;
@@ -23,3 +25,4 @@ public:
 	//開放
 	void Release() override;
 };
+
