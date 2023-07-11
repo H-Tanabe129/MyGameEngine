@@ -11,10 +11,10 @@ PlayScene::PlayScene(GameObject * parent)
 //初期化
 void PlayScene::Initialize()
 {
-		//Player* pPlayer;
-		//pPlayer = new Player(this);  // プレイヤーの親は自分(PlayScene)
-		//pPlayer->Initialize();
-		//childList_.push_back(pPlayer);  // PlaySceneの子としてプレイヤーを登録
+	//Player* pPlayer;
+	//pPlayer = new Player(this);  // プレイヤーの親は自分(PlayScene)
+	//pPlayer->Initialize();
+	//childList_.push_back(pPlayer);  // PlaySceneの子としてプレイヤーを登録
 	Instantiate<Player>(this);
 }
 

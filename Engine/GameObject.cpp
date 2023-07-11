@@ -4,7 +4,7 @@ GameObject::GameObject()
 {
 }
 
-GameObject::GameObject(GameObject* parent, const std::string& name):IsDead_(false)
+GameObject::GameObject(GameObject* parent, const std::string& name): pParent_(nullptr), IsDead_(false)
 {
 }
 

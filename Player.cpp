@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "Oden.h"
 #include "Engine/Fbx.h"
 
 //コンストラクタ
@@ -20,13 +21,15 @@ void Player::Initialize()
 	this->transform_.scale_.x = 0.5;
 	this->transform_.scale_.y = 0.5;
 	this->transform_.scale_.z = 0.5;
+
+	Instantiate<Oden>(this);
 }
 
 //更新
 void Player::Update()
 {
 	transform_.rotate_.y++;
-	KillMe();
+	//KillMe();
 }
 
 //描画
