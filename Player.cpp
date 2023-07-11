@@ -25,6 +25,7 @@ void Player::Initialize()
 //XV
 void Player::Update()
 {
+	transform_.rotate_.y++;
 }
 
 //•`‰æ
