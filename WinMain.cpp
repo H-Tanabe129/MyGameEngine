@@ -92,8 +92,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 
 		//メッセージなし
 		else
-		{//▼ゲームの処理
-
+		{
 			timeBeginPeriod(1);
 
 			static DWORD countFps = 0;
@@ -121,6 +120,8 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 
 			timeEndPeriod(1);
 
+			//▼ゲームの処理
+
 			//カメラの更新
 			Camera::Update();
 		
@@ -133,6 +134,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 
 			//ルートジョブからすべてのオブジェクトのドローを呼ぶ
 			pRootJob->DrawSub();
+
 			
 			Direct3D::EndDraw();
 			

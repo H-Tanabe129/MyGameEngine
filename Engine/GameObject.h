@@ -3,6 +3,7 @@
 #include <list>
 #include <string>
 #include "Fbx.h"
+#include "Direct3D.h"
 
 using std::string;
 using std::list;
@@ -13,11 +14,12 @@ protected:
 	Transform			transform_;
 	GameObject* 		pParent_;
 	string				objectName_;
+	bool IsDead_;
 
 public:
 	GameObject();
 	GameObject(GameObject* parent, const std::string& name);
-	~GameObject();
+	virtual ~GameObject();
 
 	virtual void Initialize() = 0;
 	virtual void Update() = 0;
@@ -28,8 +30,6 @@ public:
 	void ReleaseSub();
 
 	void KillMe();
-	bool IsDead();
-
 
 	template <class T>
 	void Instantiate(GameObject* parent)
