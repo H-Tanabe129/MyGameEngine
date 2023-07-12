@@ -25,15 +25,18 @@ void Player::Initialize()
 
 	Instantiate<Oden>(this);
 	GameObject* pCO2 = Instantiate<Oden>(this);
-	pCO2->transform_.position_.x = 
+	pCO2->SetPosition(-2.0f, 1.5f, 0.0f);
 }
 
 //XV
 void Player::Update()
 {
 	transform_.rotate_.y++;
-	//KillMe();
 
+	if (transform_.rotate_.y > 600)
+	{
+		KillMe();
+	}
 	if (Input::IsKey(DIK_RIGHT))
 	{
 		transform_.position_.x += 0.2f;

@@ -34,9 +34,9 @@ XMMATRIX Transform::GetWorldMatrix()
 {
 	if (pParent_ /* != nullptr */)  //保証されてる
 	{
-		//親があったら
-		return matTranslate_ * matRotate_ * matScale_ * pParent_->GetWorldMatrix();
-	}else
+		//親があったら親のワールドマトリクスを掛ける
+		return matScale_ * matRotate_ * matTranslate_ * pParent_->GetWorldMatrix();
+	}else//親がnullptrの時は、子の変換だけ
 		return matScale_ * matRotate_ * matTranslate_;
 }
 

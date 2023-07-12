@@ -20,15 +20,18 @@ void Oden::Initialize()
 	this->transform_.scale_.x = 0.27f;
 	this->transform_.scale_.y = 0.27f;
 	this->transform_.scale_.z = 0.27f;
-	this->transform_.position_.x = 6.0f;
-	this->transform_.position_.y = 6.0f;
+	this->transform_.position_.x = 2.0f;
+	this->transform_.position_.y = 1.5f;
 }
 
 //XV
 void Oden::Update()
 {
-	//transform_.rotate_.y++;
-	//KillMe();
+	transform_.rotate_.y++;
+	if (transform_.rotate_.y > 300)
+	{
+		KillMe();
+	}
 }
 
 //•`‰æ

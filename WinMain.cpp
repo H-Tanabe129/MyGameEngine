@@ -135,6 +135,10 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 			//ルートジョブからすべてのオブジェクトのドローを呼ぶ
 			pRootJob->DrawSub();
 
+			if (Input::IsKey(DIK_ESCAPE))
+			{
+				PostQuitMessage(0);
+			}
 			
 			Direct3D::EndDraw();
 			

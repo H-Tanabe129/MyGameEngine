@@ -32,7 +32,8 @@ public:
 	void ReleaseSub();
 
 	void KillMe();
-	void SetTra();
+	void SetPosition(XMFLOAT3(position));
+	void SetPosition(float x, float y, float z);
 
 	template <class T>
 	GameObject* Instantiate(GameObject* parent)
