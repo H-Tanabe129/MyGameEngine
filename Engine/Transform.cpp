@@ -32,7 +32,12 @@ void Transform::Calclation()
 
 XMMATRIX Transform::GetWorldMatrix()
 {
-	return matScale_ * matRotate_ * matTranslate_;
+	if (pParent_ /* != nullptr */)  //•ÛØ‚³‚ê‚Ä‚é
+	{
+		//e‚ª‚ ‚Á‚½‚ç
+		return matTranslate_ * matRotate_ * matScale_ * pParent_->GetWorldMatrix();
+	}else
+		return matScale_ * matRotate_ * matTranslate_;
 }
 
 XMMATRIX Transform::GetNormalMatrix()

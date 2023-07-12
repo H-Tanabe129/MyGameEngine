@@ -32,6 +32,7 @@ public:
 	void ReleaseSub();
 
 	void KillMe();
+	void SetTra();
 
 	template <class T>
 	GameObject* Instantiate(GameObject* parent)
