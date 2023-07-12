@@ -1,10 +1,10 @@
 #include "GameObject.h"
 
-GameObject::GameObject()
+GameObject::GameObject() :pParent_(nullptr)
 {
 }
 
-GameObject::GameObject(GameObject* parent, const std::string& name): pParent_(nullptr), IsDead_(false), objectName_(name)
+GameObject::GameObject(GameObject* parent, const std::string& name): pParent_(parent), IsDead_(false), objectName_(name)
 {
 	if (parent != nullptr)
 		this->transform_.pParent_ = &(parent->transform_);
@@ -45,8 +45,8 @@ void GameObject::ReleaseSub()
 {
 	for (auto itr = childList_.begin(); itr != childList_.end(); itr++)
 	{
-		(*itr)->ReleaseSub();
-		SAFE_DELETE(*itr);
+		(*itr)->ReleaseSub();//*itr‚ÌƒŠƒŠ[ƒX‚ğŒÄ‚Ô
+		SAFE_DELETE(*itr);//*itr©‘Ì‚ğÁ‚·
 	}
 	Release();
 }
@@ -55,3 +55,14 @@ void GameObject::KillMe()
 {
 	IsDead_ = true;
 }
+
+void GameObject::SetPosition(XMFLOAT3(position))
+{
+	transform_.position_ = position;
+}
+
+void GameObject::SetPosition(float x, float y, float z)
+{
+	SetPosition(XMFLOAT3(x, y, z));
+}
+
