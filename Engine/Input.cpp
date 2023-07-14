@@ -18,7 +18,7 @@ namespace Input
 
 	void Update()
 	{//1フレームに一回
-		memcpy(prevKeyState, keyState, sizeof(BYTE)*256);
+		memcpy(prevKeyState, keyState, sizeof(prevKeyState));
 
 		pKeyDevice->Acquire();
 		pKeyDevice->GetDeviceState(sizeof(keyState), &keyState);
@@ -36,7 +36,7 @@ namespace Input
     bool IsKeyDown(int keyCode)
     {
         //今は押してて、前回は押してない
-        if (IsKey(keyCode) && !prevKeyState[keyCode] & 0x80)
+		if (IsKey(keyCode) && (!prevKeyState[keyCode] & 0x80))
         {
             return true;
         }
@@ -45,7 +45,8 @@ namespace Input
 
     bool IsKeyUp(int keyCode)
     {
-		if (!IsKey(keyCode) && prevKeyState[keyCode] & 0x80)
+		//今は押してなくて、前回は押してる
+		if (!IsKey(keyCode) && (prevKeyState[keyCode] & 0x80))
 		{
 			return true;
 		}

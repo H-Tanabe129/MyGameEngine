@@ -7,6 +7,7 @@ class Oden :
 	public GameObject
 {
 	Fbx* pFbx;
+	int hModel_;
 public:
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）
