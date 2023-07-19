@@ -15,13 +15,13 @@ private:
 protected:
 	list<GameObject*>	childList_;
 	Transform			transform_;
-	GameObject* 		pParent_;
+	GameObject* pParent_;
 	string				objectName_;
 
 public:
 	GameObject();
 	GameObject(GameObject* parent, const std::string& name);
-	virtual ~GameObject();
+	~GameObject();
 
 	virtual void Initialize() = 0;
 	virtual void Update() = 0;
@@ -30,11 +30,13 @@ public:
 	void DrawSub();
 	void UpdateSub();
 	void ReleaseSub();
-
 	void KillMe();
-
 	void SetPosition(XMFLOAT3(position));
 	void SetPosition(float x, float y, float z);
+
+	GameObject* FindChildObject(string _objName);
+	GameObject* GetRootJob();
+	GameObject* FindObject(string _objName);
 
 	template <class T>
 	GameObject* Instantiate(GameObject* parent)
