@@ -2,21 +2,23 @@
 
 #include <list>
 #include <string>
-#include "Fbx.h"
+#include "Transform.h"
 #include "Direct3D.h"
 
 using std::string;
 using std::list;
+
+class SphereCollider;
+
 class GameObject
 {
-private:
-	bool IsDead_;
-
+	bool isDead_;
 protected:
 	list<GameObject*>	childList_;
 	Transform			transform_;
-	GameObject* pParent_;
-	string				objectName_;
+	GameObject*			pParent_;
+	string				objectName_; //オブジェクトの名前の文字列
+	SphereCollider*		pCollider_;
 
 public:
 	GameObject();
@@ -31,13 +33,19 @@ public:
 	void UpdateSub();
 	void ReleaseSub();
 	void KillMe();
-	void SetPosition(XMFLOAT3(position));
+	void SetPosition(XMFLOAT3 position);
 	void SetPosition(float x, float y, float z);
 
 	GameObject* FindChildObject(string _objName);
 	GameObject* GetRootJob();
 	GameObject* FindObject(string _objName);
+	void AddCollider(SphereCollider* pCollider);
+	void Collision(GameObject* pTarget);
+	void RoundRobin(GameObject* pTarget);
+	virtual void OnCollision(GameObject* pTarget){}
 
+public:
+	//テンプレートの定義
 	template <class T>
 	GameObject* Instantiate(GameObject* parent)
 	{
@@ -45,6 +53,6 @@ public:
 		pObject = new T(parent);
 		pObject->Initialize();
 		childList_.push_back(pObject);
-		return pObject;
+		return(pObject);
 	}
 };
