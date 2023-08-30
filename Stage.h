@@ -1,17 +1,21 @@
 #pragma once
 #include "Engine/GameObject.h"
 
-const int MODEL_NUM = 5;
+const int MODEL_NUM{ 5 };
 const int XSIZE{ 15 };
 const int ZSIZE{ 15 };
-enum BLOCKTYPE
-{
-    DEFAULT, BRICK, GRASS, SAND, WATER,
-};
+    enum BLOCKTYPE
+    {
+        DEFAULT, BRICK, GRASS, SAND, WATER,
+    };
 class Stage : public GameObject
 {
     int hModel_[5];    //モデル番号
-    int table_[XSIZE][ZSIZE];
+    //int table_[XSIZE][ZSIZE];
+struct {
+    int type;
+    int height;
+}table_[XSIZE][ZSIZE];
 
 public:
     //コンストラクタ
@@ -31,5 +35,8 @@ public:
 
     //開放
     void Release() override;
+
+    void SetBlockType(int _x, int _z, BLOCKTYPE _type);
+    void SetBlockHeight(int _x, int _z, int _height);
 };
 

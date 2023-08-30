@@ -22,9 +22,9 @@ void Controller::Update()
 {
 	//‰ñ“]
 	if (Input::IsKey(DIK_RIGHT))
-		transform_.rotate_.y -= 1;
-	if (Input::IsKey(DIK_LEFT))
 		transform_.rotate_.y += 1;
+	if (Input::IsKey(DIK_LEFT))
+		transform_.rotate_.y -= 1;
 	if (Input::IsKey(DIK_UP))
 	{
 		transform_.rotate_.x += 1;
