@@ -10,7 +10,7 @@ const int ZSIZE{ 15 };
     };
 class Stage : public GameObject
 {
-    int hModel_[5];    //ƒ‚ƒfƒ‹”Ô†
+    int hModel_[MODEL_NUM];    //ƒ‚ƒfƒ‹”Ô†
     //int table_[XSIZE][ZSIZE];
 struct {
     int type;

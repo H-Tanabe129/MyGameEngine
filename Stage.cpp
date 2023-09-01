@@ -16,13 +16,13 @@ void Stage::SetBlockHeight(int _x, int _z, int _height)
 
 //コンストラクタ
 Stage::Stage(GameObject* parent)
-    :GameObject(parent, "Stage"), hModel_{ -1,-1,-1,-1,-1 }
+    :GameObject(parent, "Stage")
 {
     for (int i = 0; i < MODEL_NUM; i++){
         hModel_[i] = -1;
     }
-    for (int x = 0; x < XSIZE; x++){
-        for (int z = 0; z < ZSIZE; z++){
+    for (int z = 0; z < ZSIZE; z++){
+        for (int x = 0; x < XSIZE; x++){
             SetBlockType(x, z, DEFAULT);
         }
     }
@@ -53,12 +53,12 @@ void Stage::Initialize()
 
     //tableにブロックのタイプをセットしてやろう！
 
-    for (int x = 0; x < XSIZE; x++){
-        for (int z = 0; z < ZSIZE; z++){
-            SetBlockHeight(x, z, 4);
+    for (int z = 0; z < ZSIZE; z++){
+        for (int x = 0; x < XSIZE; x++){
+            SetBlockType(x, z, (BLOCKTYPE)(z % 5));
+            SetBlockHeight(x, z, x%5);
         }
     }
-    //table_[3][5] = GRASS;
 }
 
 //更新
