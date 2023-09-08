@@ -1,5 +1,9 @@
 #include "Stage.h"
 #include "Engine/Model.h"
+#include "Engine/Camera.h"
+#include "Engine/Input.h"
+#include "Engine/Direct3D.h"
+#include "resource.h"
 
 
 void Stage::SetBlockType(int _x, int _z, BLOCKTYPE _type)
@@ -64,6 +68,71 @@ void Stage::Initialize()
 //更新
 void Stage::Update()
 {
+    if (Input::IsMouseButtonDown(0))
+    {
+        //ビューポート行列
+        float w = (float)Direct3D::scrWidth / 2.0f;
+        float h = (float)Direct3D::scrHeight / 2.0f;
+        XMMATRIX vp = {
+            w, 0, 0, 0,
+            0,-h, 0, 0,
+            0, 0, 1, 0,
+            w, h, 0, 1
+        };
+
+        XMMATRIX invVP = XMMatrixInverse(nullptr, vp);
+        XMMATRIX invProj = XMMatrixInverse(nullptr, Camera::GetProjectionMatrix());
+        XMMATRIX invView = XMMatrixInverse(nullptr, Camera::GetViewMatrix());
+
+        //マウス位置（手前）
+        XMFLOAT3 mousePosFront = Input::GetMousePosition();
+        mousePosFront.z = 0.0f;
+
+        //マウス位置（奥）
+        XMFLOAT3 mousePosBack = Input::GetMousePosition();
+        mousePosBack.z = 0.0f;
+
+        //①　mousePosFrontをベクトルに変換
+        XMVECTOR vMouseFront = XMLoadFloat3(&mousePosFront);
+        //②　①にinvVP, invPrj, invViewをかける
+        vMouseFront = XMVector3TransformCoord(vMouseFront, invVP * invProj * invView);
+        //③　mousePosBackをベクトルに変換
+        XMVECTOR vMouseBack = XMLoadFloat3(&mousePosBack);
+        //④　③にinvVP, invPrj, invViewをかける
+        vMouseBack = XMVector3TransformCoord(vMouseBack, invVP * invProj * invView);
+
+        int bufX = -1, bufZ;
+        float minDistance = 9999999;
+
+        for (int x = 0; x < 15; x++) {
+            for (int z = 0; z < 15; z++) {
+                for (int y = 0; y < table_[x][z].height + 1; y++) {
+                    //⑤　②から④に向かってレイをうつ(とりあえずモデル番号はhModel_[0])
+                    RayCastData data;
+                    XMStoreFloat4(&data.start, vMouseFront);
+                    XMStoreFloat4(&data.dir, vMouseBack - vMouseFront);
+
+                    Transform trans;
+                    Model::SetTransform(hModel_[0], trans);
+                    Model::RayCast(hModel_[0], data);
+
+                    //⑥レイが当たったらブレークポイントで止める
+                    if (data.hit)
+                    {
+                        //table_[x][z].height++;
+                        //break;
+
+                        if (minDistance > data.dist)
+                        {
+                            minDistance = data.dist;
+                            bufX = x;
+                            bufZ = z;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 //描画
@@ -89,4 +158,30 @@ void Stage::Draw()
 //開放
 void Stage::Release()
 {
+}
+
+//偽物のダイアログプロシージャ
+BOOL  Stage::DialogProc(HWND hDlg, UINT msg, WPARAM wp, LPARAM lp)
+{
+    switch (msg)
+    {
+        //ダイアログできた
+    case WM_INITDIALOG:
+        //ラジオボタンの初期値
+        SendMessage(GetDlgItem(hDlg, IDC_RADIO_UP), BM_SETCHECK, BST_CHECKED, 0);
+
+        //コンボボックスの初期値
+        SendMessage(GetDlgItem(hDlg, IDC_COMBO2), CB_ADDSTRING, 0, (LPARAM)"デフォルト");
+        SendMessage(GetDlgItem(hDlg, IDC_COMBO2), CB_ADDSTRING, 0, (LPARAM)"レンガ");
+        SendMessage(GetDlgItem(hDlg, IDC_COMBO2), CB_ADDSTRING, 0, (LPARAM)"草原");
+        SendMessage(GetDlgItem(hDlg, IDC_COMBO2), CB_ADDSTRING, 0, (LPARAM)"砂地");
+        SendMessage(GetDlgItem(hDlg, IDC_COMBO2), CB_ADDSTRING, 0, (LPARAM)"水");
+        SendMessage(GetDlgItem(hDlg, IDC_COMBO2), CB_SETCURSEL, 0, 0);
+
+
+
+        return TRUE;
+
+    }
+    return FALSE;
 }

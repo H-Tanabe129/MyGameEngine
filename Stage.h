@@ -1,5 +1,6 @@
 #pragma once
 #include "Engine/GameObject.h"
+#include "windows.h"
 
 const int MODEL_NUM{ 5 };
 const int XSIZE{ 15 };
@@ -17,7 +18,13 @@ struct {
     int height;
 }table_[XSIZE][ZSIZE];
 
+int mode_;      //0:上げる　1：下げる　2：種類を変える
+int select_;    //種類
+
 public:
+    void SetBlockType(int _x, int _z, BLOCKTYPE _type);
+    void SetBlockHeight(int _x, int _z, int _height);
+
     //コンストラクタ
    Stage(GameObject* parent);
 
@@ -35,8 +42,7 @@ public:
 
     //開放
     void Release() override;
+    BOOL DialogProc(HWND hDlg, UINT msg, WPARAM wp, LPARAM lp);
 
-    void SetBlockType(int _x, int _z, BLOCKTYPE _type);
-    void SetBlockHeight(int _x, int _z, int _height);
 };
 

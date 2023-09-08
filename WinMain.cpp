@@ -7,6 +7,8 @@
 #include "Engine/Model.h"
 #include "Engine/RootJob.h" 
 #include "DirectXCollision.h"
+#include "resource.h"
+#include "Stage.h"
 
 #pragma comment(lib, "winmm.lib")
 
@@ -18,7 +20,7 @@ const int WINDOW_WIDTH = 800;  //ウィンドウの幅
 const int WINDOW_HEIGHT = 600; //ウィンドウの高さ
 
 //プロトタイプ宣言
-LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam); BOOL CALLBACK DialogProc(HWND hDlg, UINT msg, WPARAM wp, LPARAM lp);
 
 
 //エントリーポイント
@@ -88,6 +90,8 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 
 	pRootJob = new RootJob(nullptr);
 	pRootJob->Initialize();
+
+	HWND hDlg = CreateDialog(hInstance, MAKEINTRESOURCE(IDD_DIALOG1), hWnd, (DLGPROC)DialogProc);
 
 	//メッセージループ（何か起きるのを待つ）
 	MSG msg;
@@ -176,4 +180,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		return 0;
 	}
 	return DefWindowProc(hWnd, msg, wParam, lParam);
+}
+
+//本物のダイアログプロシージャ
+BOOL CALLBACK DialogProc(HWND hDlg, UINT msg, WPARAM wp, LPARAM lp)
+{
+	Stage* pStage = (Stage*)pRootJob->FindObject("Stage");
+	return pStage->DialogProc(hDlg, msg, wp, lp);
 }

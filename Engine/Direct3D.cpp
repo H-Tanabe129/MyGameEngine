@@ -1,6 +1,5 @@
 #include <d3dcompiler.h>
 #include "Direct3D.h"
-#include <DirectXMath.h>
 #include <cassert>
 #include <vector>
 
@@ -23,6 +22,7 @@ namespace Direct3D
 		ID3D11InputLayout* pVertexLayout_ = nullptr;	//頂点インプットレイアウト
 	};
 	SHADER_BUNDLE shaderBundle[SHADER_MAX];
+	int scrWidth, scrHeight;
 }
 
 
