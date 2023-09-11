@@ -80,8 +80,11 @@ void Stage::Update()
             w, h, 0, 1
         };
 
+        //ビューポート
         XMMATRIX invVP = XMMatrixInverse(nullptr, vp);
+        //プロジェクション変換
         XMMATRIX invProj = XMMatrixInverse(nullptr, Camera::GetProjectionMatrix());
+        //ビュー変換
         XMMATRIX invView = XMMatrixInverse(nullptr, Camera::GetViewMatrix());
 
         //マウス位置（手前）
@@ -90,7 +93,7 @@ void Stage::Update()
 
         //マウス位置（奥）
         XMFLOAT3 mousePosBack = Input::GetMousePosition();
-        mousePosBack.z = 0.0f;
+        mousePosBack.z = 1.0f;
 
         //①　mousePosFrontをベクトルに変換
         XMVECTOR vMouseFront = XMLoadFloat3(&mousePosFront);
@@ -101,8 +104,8 @@ void Stage::Update()
         //④　③にinvVP, invPrj, invViewをかける
         vMouseBack = XMVector3TransformCoord(vMouseBack, invVP * invProj * invView);
 
-        int bufX = -1, bufZ;
-        float minDistance = 9999999;
+        /*int bufX = -1, bufZ;
+        float minDistance = 9999999;*/
 
         for (int x = 0; x < 15; x++) {
             for (int z = 0; z < 15; z++) {
@@ -113,21 +116,17 @@ void Stage::Update()
                     XMStoreFloat4(&data.dir, vMouseBack - vMouseFront);
 
                     Transform trans;
+                    transform_.position_.x = x;
+                    transform_.position_.y = y;
+                    transform_.position_.z = z;
                     Model::SetTransform(hModel_[0], trans);
                     Model::RayCast(hModel_[0], data);
 
                     //⑥レイが当たったらブレークポイントで止める
                     if (data.hit)
                     {
-                        //table_[x][z].height++;
-                        //break;
-
-                        if (minDistance > data.dist)
-                        {
-                            minDistance = data.dist;
-                            bufX = x;
-                            bufZ = z;
-                        }
+                        table_[x][z].height++;
+                        break;
                     }
                 }
             }

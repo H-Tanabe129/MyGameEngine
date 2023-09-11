@@ -1,6 +1,6 @@
 #include "Texture.h"
 #include "Direct3D.h"
-#include <wincodec.h>
+//#include <wincodec.h>
 
 
 #include <DirectXTex.h>
