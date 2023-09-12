@@ -3,7 +3,6 @@
 
 namespace Input
 {
-	//キーボード
 	LPDIRECTINPUT8   pDInput_ = nullptr;
 	LPDIRECTINPUTDEVICE8 pKeyDevice_ = nullptr;
 	BYTE keyState[256] = { 0 };  //キーボードの数(200超えることはないでしょ)
@@ -17,8 +16,9 @@ namespace Input
 
 	void Initialize(HWND hWnd)
 	{
-		//キーボード
 		DirectInput8Create(GetModuleHandle(nullptr), DIRECTINPUT_VERSION, IID_IDirectInput8, (VOID**)&pDInput_, nullptr);
+
+		//キーボード
 		pDInput_->CreateDevice(GUID_SysKeyboard, &pKeyDevice_, nullptr);
 		pKeyDevice_->SetDataFormat(&c_dfDIKeyboard);
 		pKeyDevice_->SetCooperativeLevel(hWnd, DISCL_NONEXCLUSIVE | DISCL_BACKGROUND);
@@ -63,7 +63,7 @@ namespace Input
 
 	bool IsKeyUp(int keyCode)
 	{
-		//今は押してなくて、前回は押してない
+		//今は押してなくて、前回は押してる
 		if (!IsKey(keyCode) && prevKeyState[keyCode] & 0x80)
 		{
 			return true;

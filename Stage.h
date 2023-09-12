@@ -42,7 +42,7 @@ public:
 
     //ŠJ•ú
     void Release() override;
-    //BOOL DialogProc(HWND hDlg, UINT msg, WPARAM wp, LPARAM lp);
+    BOOL DialogProc(HWND hDlg, UINT msg, WPARAM wp, LPARAM lp);
 
 };
 

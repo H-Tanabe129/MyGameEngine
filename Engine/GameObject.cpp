@@ -142,8 +142,7 @@ void GameObject::Collision(GameObject* pTarget)
 	if (dist <= rDist)
 	{
 		//onCollinsion();ŒÄ‚Ú‚¤I
-		//double p = 0;
-		OnCollision(pTarget);
+		double p = 0;
 	}
 }
 
@@ -157,4 +156,3 @@ void GameObject::RoundRobin(GameObject* pTarget)
 	for (auto itr : pTarget->childList_)
 		RoundRobin(itr);
 }
-

@@ -42,7 +42,6 @@ public:
 	void AddCollider(SphereCollider* pCollider);
 	void Collision(GameObject* pTarget);
 	void RoundRobin(GameObject* pTarget);
-	virtual void OnCollision(GameObject* pTarget){}
 
 public:
 	//テンプレートの定義

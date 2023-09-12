@@ -30,8 +30,6 @@ HRESULT Texture::Load(std::string fileName)
 	hr = LoadFromWICFile(wtext, WIC_FLAGS::WIC_FLAGS_NONE, &metadata, image);
 	if (FAILED(hr))
 	{
-		//
-		MessageBox(nullptr, "画像の読み込みに失敗しました", "エラー", MB_OK);
 		return E_FAIL;
 	}
 
@@ -45,8 +43,6 @@ HRESULT Texture::Load(std::string fileName)
 	hr = Direct3D::pDevice_->CreateSamplerState(&SamDesc, &pSampler_);
 	if (FAILED(hr))
 	{
-		//エラー処理
-		MessageBox(nullptr, "サンプラーの作成に失敗しました", "エラー", MB_OK);
 		return E_FAIL;
 	}
 
@@ -58,9 +54,7 @@ HRESULT Texture::Load(std::string fileName)
 	hr = CreateShaderResourceView(Direct3D::pDevice_, image.GetImages(),image.GetImageCount(),metadata, &pSRV_);
 	if (FAILED(hr))
 	{
-		//エラー処理
-		MessageBox(nullptr, "シェーダーリソースビューの作成に失敗しました", "エラー", MB_OK);
-		return E_FAIL;
+		return S_FALSE;
 	}
 
 	return S_OK;
@@ -69,7 +63,7 @@ HRESULT Texture::Load(std::string fileName)
 
 void Texture::Release()
 {
-	SAFE_RELEASE(pSRV_);
 	SAFE_RELEASE(pSampler_);
+	SAFE_RELEASE(pSRV_);
 }
 

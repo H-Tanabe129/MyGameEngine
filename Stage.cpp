@@ -3,12 +3,13 @@
 #include "Engine/Camera.h"
 #include "Engine/Input.h"
 #include "Engine/Fbx.h"
+#include "resource.h"
 
 
 void Stage::SetBlockType(int _x, int _z, BLOCKTYPE _type)
 {
     //エラーチェック 範囲内の値かどうか確認したほうがいい
-    table_[_x][_z].height = _type;
+    table_[_x][_z].type = _type;
 }
 
 void Stage::SetBlockHeight(int _x, int _z, int _height)
@@ -44,7 +45,7 @@ void Stage::Initialize()
         "BoxBrick.fbx",
         "BoxGrass.fbx",
         "BoxSand.fbx",
-        "BoxWater.fbx",
+        "BoxWater.fbx"
     };
     string fname_base = "Assets/";
     for (int i = 0; i < MODEL_NUM; i++)
@@ -98,7 +99,7 @@ void Stage::Update()
     //マウス位置（奥）
     XMFLOAT3 mousePosBack = Input::GetMousePosition();
     mousePosBack.z = 1.0f;
-
+                                                                                                                                                          
     //①　mousePosFrontをベクトルに変換
     XMVECTOR vMouseFront = XMLoadFloat3(&mousePosFront);
     //②　①にinvVP, invPrj, invViewをかける
@@ -137,12 +138,11 @@ void Stage::Update()
 //描画
 void Stage::Draw()
 {
-    Transform blockTrans;
-
     for (int x = 0; x < 15; x++){
         for (int z = 0; z < 15; z++){
             for(int y=0;y<table_[x][z].height + 1;y++){
                 int type = table_[x][z].type;
+                Transform blockTrans;
                 blockTrans.position_.x = x;
                 blockTrans.position_.z = z;
                 blockTrans.position_.y = y;
@@ -160,27 +160,27 @@ void Stage::Release()
 }
 
 //偽物のダイアログプロシージャ
-//BOOL  Stage::DialogProc(HWND hDlg, UINT msg, WPARAM wp, LPARAM lp)
-//{
-//    switch (msg)
-//    {
-//        //ダイアログできた
-//    case WM_INITDIALOG:
-//        //ラジオボタンの初期値
-//        SendMessage(GetDlgItem(hDlg, IDC_RADIO_UP), BM_SETCHECK, BST_CHECKED, 0);
-//
-//        //コンボボックスの初期値
-//        SendMessage(GetDlgItem(hDlg, IDC_COMBO2), CB_ADDSTRING, 0, (LPARAM)"デフォルト");
-//        SendMessage(GetDlgItem(hDlg, IDC_COMBO2), CB_ADDSTRING, 0, (LPARAM)"レンガ");
-//        SendMessage(GetDlgItem(hDlg, IDC_COMBO2), CB_ADDSTRING, 0, (LPARAM)"草原");
-//        SendMessage(GetDlgItem(hDlg, IDC_COMBO2), CB_ADDSTRING, 0, (LPARAM)"砂地");
-//        SendMessage(GetDlgItem(hDlg, IDC_COMBO2), CB_ADDSTRING, 0, (LPARAM)"水");
-//        SendMessage(GetDlgItem(hDlg, IDC_COMBO2), CB_SETCURSEL, 0, 0);
-//
-//
-//
-//        return TRUE;
-//
-//    }
-//    return FALSE;
-//}
+BOOL  Stage::DialogProc(HWND hDlg, UINT msg, WPARAM wp, LPARAM lp)
+{
+    switch (msg)
+    {
+        //ダイアログできた
+    case WM_INITDIALOG:
+        //ラジオボタンの初期値
+        SendMessage(GetDlgItem(hDlg, IDC_RADIO_UP), BM_SETCHECK, BST_CHECKED, 0);
+
+        //コンボボックスの初期値
+        SendMessage(GetDlgItem(hDlg, IDC_COMBO2), CB_ADDSTRING, 0, (LPARAM)"デフォルト");
+        SendMessage(GetDlgItem(hDlg, IDC_COMBO2), CB_ADDSTRING, 0, (LPARAM)"レンガ");
+        SendMessage(GetDlgItem(hDlg, IDC_COMBO2), CB_ADDSTRING, 0, (LPARAM)"草原");
+        SendMessage(GetDlgItem(hDlg, IDC_COMBO2), CB_ADDSTRING, 0, (LPARAM)"砂地");
+        SendMessage(GetDlgItem(hDlg, IDC_COMBO2), CB_ADDSTRING, 0, (LPARAM)"水");
+        SendMessage(GetDlgItem(hDlg, IDC_COMBO2), CB_SETCURSEL, 0, 0);
+
+
+
+        return TRUE;
+
+    }
+    return FALSE;
+}

@@ -26,8 +26,8 @@ void RootJob::Update()
 
 void RootJob::Draw()
 {
-	for (auto& e : childList_)
-		e->Draw();
+	//for (auto& e : childList_)
+	//	e->Draw();
 }
 
 void RootJob::Release()
