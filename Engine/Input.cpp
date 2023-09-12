@@ -32,7 +32,7 @@ namespace Input
 	void Update()
 	{
 		//キーボード
-		memcpy(prevKeyState, keyState, sizeof(BYTE) * 256);
+		memcpy(prevKeyState, keyState, sizeof(prevKeyState));
 		pKeyDevice_->Acquire(); //これがないとたまにキーを見失う
 		pKeyDevice_->GetDeviceState(sizeof(keyState), &keyState);
 
@@ -73,29 +73,28 @@ namespace Input
 
 	void Release()
 	{
-		SAFE_RELEASE(pKeyDevice_);
 		SAFE_RELEASE(pDInput_);
 	}
 
 	//////////　　マウス　　//////////
 	bool IsMouseButton(int buttonCode)
 	{
+		//押してる
 		if (mouseState_.rgbButtons[buttonCode] & 0x80)
 		{
 			return true;
 		}
 		return false;
 	}
-
 	bool IsMouseButtonDown(int buttonCode)
 	{
+		//今は押してて、前回は押してない
 		if (IsMouseButton(buttonCode) && !(prevMouseState.rgbButtons[buttonCode] & 0x80))
 		{
 			return true;
 		}
 		return false;
 	}
-
 	bool IsMouseButtonUp(int buttonCode)
 	{
 		//今押してなくて、前回は押してる
@@ -105,18 +104,9 @@ namespace Input
 		}
 		return false;
 	}
-
 	XMFLOAT3 GetMousePosition()
 	{
 		return mousePosition_;
-	}
-
-	void SetMousePosition(int x, int y)
-	{
-		mousePosition_.x = x;
-		mousePosition_.y = y;
-		std::string resStr = std::to_string(x) + "." + std::to_string(y) + "\n";
-		OutputDebugString(resStr.c_str());
 	}
 
 	XMFLOAT3 GetMouseMove()
@@ -125,5 +115,15 @@ namespace Input
 			(float)mouseState_.lY,
 			(float)mouseState_.lZ);
 		return result;
+	}
+
+	//マウスカーソルの位置をセット
+	void SetMousePosition(int x, int y)
+	{
+		mousePosition_.x = x;
+		mousePosition_.y = y;
+		std::string resStr = std::to_string(x) + "," + std::to_string(y) + "\n";
+		OutputDebugString(resStr.c_str());
+
 	}
 }

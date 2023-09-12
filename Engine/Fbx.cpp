@@ -112,8 +112,6 @@ void Fbx::InitVertex(fbxsdk::FbxMesh* mesh)
 	}
 }
 
-
-
 //インデックスバッファ準備
 void Fbx::InitIndex(fbxsdk::FbxMesh* mesh)
 {

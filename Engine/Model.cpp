@@ -1,14 +1,7 @@
 ﻿#include "Model.h"
-#include<vector>
 #include "DIrect3D.h"
 
 namespace Model{
-	struct ModelData
-	{
-		Fbx* pfbx_;
-		Transform transform_;
-		std::string filename_;
-	};
 	//モデルのポインタをぶち込んでおくベクタ
 	std::vector<ModelData*>modelList;
 }
