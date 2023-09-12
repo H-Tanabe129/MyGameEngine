@@ -2,7 +2,7 @@
 #include "Engine/Model.h"
 #include "Engine/Camera.h"
 #include "Engine/Input.h"
-#include "Engine/Direct3D.h"
+#include "Engine/Fbx.h"
 
 
 void Stage::SetBlockType(int _x, int _z, BLOCKTYPE _type)
@@ -73,8 +73,8 @@ void Stage::Update()
     }
 
     //ビューポート行列
-    float w = (float)Direct3D::scrWidth / 2.0f;
-    float h = (float)Direct3D::scrHeight / 2.0f;
+    float w = (float)(Direct3D::scrWidth / 2.0f);
+    float h = (float)(Direct3D::scrHeight / 2.0f);
     //Offsetx,y は0
     //minZ =0 maxZ = 1
 
@@ -86,11 +86,11 @@ void Stage::Update()
     };
 
     //ビューポート
-    XMMATRIX invVP = XMMatrixInverse(nullptr, vp);
-    //プロジェクション変換
-    XMMATRIX invProj = XMMatrixInverse(nullptr, Camera::GetProjectionMatrix());
-    //ビュー変換
-    XMMATRIX invView = XMMatrixInverse(nullptr, Camera::GetViewMatrix());
+	XMMATRIX invVP = XMMatrixInverse(nullptr, vp);
+	//プロジェクション変換
+	XMMATRIX invProj = XMMatrixInverse(nullptr, Camera::GetProjectionMatrix());
+	//ビュー変換
+	XMMATRIX invView = XMMatrixInverse(nullptr, Camera::GetViewMatrix());
 
     //マウス位置（手前）
     XMFLOAT3 mousePosFront = Input::GetMousePosition();
