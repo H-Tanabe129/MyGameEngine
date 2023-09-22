@@ -125,9 +125,19 @@ void Stage::Update()
                 Model::RayCast(hModel_[0], data);
 
                 //⑥レイが当たったらブレークポイントで止める
-                if (data.hit)
+                if (data.hit && mode_ == 0)
                 {
                     table_[x][z].height++;
+                    break;
+                }
+                if (data.hit && mode_ == 1 && table_[x][z].height != 0)
+                {
+                    table_[x][z].height--;
+                    break;
+                }
+                if (data.hit && mode_ == 2)
+                {
+                    table_[x][z].type = select_;
                     break;
                 }
             }
@@ -177,10 +187,37 @@ BOOL  Stage::DialogProc(HWND hDlg, UINT msg, WPARAM wp, LPARAM lp)
         SendMessage(GetDlgItem(hDlg, IDC_COMBO2), CB_ADDSTRING, 0, (LPARAM)"水");
         SendMessage(GetDlgItem(hDlg, IDC_COMBO2), CB_SETCURSEL, 0, 0);
 
-
-
         return TRUE;
 
+
+
+    case WM_COMMAND:
+            if (HIWORD(wp) == BN_CLICKED)
+            {
+                //何押したか取得
+                int radioButtonId = LOWORD(wp);
+                switch (radioButtonId)
+                {
+                case IDC_RADIO_UP:
+                    mode_ = 0;
+                    break;
+                case IDC_RADIO_DOWN:
+                    mode_ = 1;
+                    break;
+                case IDC_RADIO_CHANGE:
+                    mode_ = 2;
+                    break;
+                }
+                return TRUE;
+            }
+            if (HIWORD(lp) == BN_CLICKED)
+            {
+                int comboBoxId = LOWORD(lp);
+                switch (comboBoxId)
+                {
+                case SendMessage(GetDlgItem(hDlg, IDC_COMBO2), CB_ADDSTRING, 0, (LPARAM)"デフォルト"):
+                }
+            }
     }
     return FALSE;
 }
