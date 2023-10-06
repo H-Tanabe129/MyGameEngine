@@ -185,6 +185,21 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	case WM_DESTROY:
 		PostQuitMessage(0);  //プログラム終了
 		return 0;
+	case WM_COMMAND:
+		switch (LOWORD(wParam))
+		{
+		case ID_MENU_NEW:
+			OutputDebugString("new FILE");
+			break;
+		case ID_MENU_OPEN:
+			OutputDebugString("open FILE");
+			break;
+		case ID_MENU_SAVE:
+			OutputDebugString("Save FILE");
+			//ファイル保存ダイアログで名前を決める
+			//決めたファイル名でセーブを実行
+			return 0;
+		}
 	}
 	return DefWindowProc(hWnd, msg, wParam, lParam);
 }
