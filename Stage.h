@@ -45,5 +45,6 @@ public:
     BOOL DialogProc(HWND hDlg, UINT msg, WPARAM wp, LPARAM lp);
 
     void Save();
+    void Load();
 };
 
