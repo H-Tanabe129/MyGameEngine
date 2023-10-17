@@ -164,6 +164,40 @@ void Stage::Draw()
     }
 }
 
+void Stage::Upward()
+{
+    for (int x = 0; x < 15; x++) {
+        for (int z = 0; z < 15; z++) {
+            for (int y = 0; y <= table_[x][z].height; y++) {
+                // Y座標を+1する
+                table_[x][z].height += 1;
+            }
+        }
+    }
+}
+
+void Stage::Downward()
+{
+    for (int x = 0; x < 15; x++) {
+        for (int z = 0; z < 15; z++) {
+            for (int y = 0; y <= table_[x][z].height; y++) {
+                    // Y座標を-1する
+                    table_[x][z].height -= 1;
+            }
+        }
+    }
+}
+
+void Stage::Reset()
+{
+    for (int z = 0; z < ZSIZE; z++) {
+        for (int x = 0; x < XSIZE; x++) {
+            SetBlockType(x, z, (BLOCKTYPE)(0));
+            SetBlockHeight(x, z, 0);
+        }
+    }
+}
+
 //開放
 void Stage::Release()
 {
@@ -207,9 +241,19 @@ BOOL  Stage::DialogProc(HWND hDlg, UINT msg, WPARAM wp, LPARAM lp)
                 case IDC_RADIO_CHANGE:
                     mode_ = 2;
                     break;
+                case IDC_BUTTON_UP:
+                    Upward();
+                    break;
+                case IDC_BUTTON_DOWN:
+                    Downward();
+                    break;
+                case IDC_BUTTON_RESET:
+                    Reset();
+                    break;
                 }
                 return TRUE;
             }
+
             /*if (HIWORD(lp) == BN_CLICKED)
             {
                 int comboBoxId = LOWORD(lp);
@@ -279,20 +323,20 @@ void Stage::Load()
   if(selFile == FALSE) return;
 
 
-  //ファイルのサイズを取得
-  DWORD fileSize = GetFileSize(hFile, NULL);
+  ////ファイルのサイズを取得
+  //DWORD fileSize = GetFileSize(hFile, NULL);
 
-  //ファイルのサイズ分メモリを確保
-  char* data;
-  data = new char[fileSize];
+  ////ファイルのサイズ分メモリを確保
+  //char* data;
+  //data = new char[fileSize];
 
-  DWORD dwBytes = 0; //読み込み位置
+  //DWORD dwBytes = 0; //読み込み位置
 
-  HANDLE hFile;        //ファイルのハンドル
-  hFile = ReadFile(
-      hFile,     //ファイルハンドル
-      data,      //データを入れる変数
-      fileSize,  //読み込むサイズ
-      &dwBytes,  //読み込んだサイズ
-      NULL);     //オーバーラップド構造体（今回は使わない）
+  //HANDLE hFile;        //ファイルのハンドル
+  //hFile = ReadFile(
+  //    hFile,     //ファイルハンドル
+  //    data,      //データを入れる変数
+  //    fileSize,  //読み込むサイズ
+  //    &dwBytes,  //読み込んだサイズ
+  //    NULL);     //オーバーラップド構造体（今回は使わない）
 }

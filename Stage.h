@@ -46,5 +46,9 @@ public:
 
     void Save();
     void Load();
+
+    void Upward();
+    void Downward();
+    void Reset();
 };
 
