@@ -125,14 +125,16 @@ void Stage::Update()
                 Model::RayCast(hModel_[0], data);
 
                 //⑥レイが当たったらブレークポイントで止める
-                if (data.hit && mode_ == 0)
+                if (data.hit && mode_ == 0 && isFlag_ == true)
                 {
                     table_[x][z].height++;
+                    isFlag_ = false;
                     break;
                 }
-                if (data.hit && mode_ == 1 && table_[x][z].height != 0)
+                if (data.hit && mode_ == 1 && table_[x][z].height != 0 && isFlag_ == true)
                 {
                     table_[x][z].height--;
+                    isFlag_ = false;
                     break;
                 }
                 if (data.hit && mode_ == 2)
@@ -143,6 +145,7 @@ void Stage::Update()
             }
         }
     }
+    isFlag_ = true;
 }
 
 //描画

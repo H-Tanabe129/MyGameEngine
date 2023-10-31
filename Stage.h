@@ -20,6 +20,7 @@ struct {
 
 int mode_;      //0:上げる　1：下げる　2：種類を変える
 int select_;    //種類
+bool isFlag_ = true;
 
 public:
     void SetBlockType(int _x, int _z, BLOCKTYPE _type);
