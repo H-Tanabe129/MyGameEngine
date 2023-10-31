@@ -125,7 +125,7 @@ void Stage::Update()
                 Model::RayCast(hModel_[0], data);
 
                 //⑥レイが当たったらブレークポイントで止める
-                if (data.hit && 0<=((y - data.start.y) / data.dir.y )<=1 && mode_ == 0)
+                if (data.hit && mode_ == 0)
                 {
                     table_[x][z].height++;
                     break;
@@ -168,24 +168,21 @@ void Stage::Upward()
 {
     for (int x = 0; x < 15; x++) {
         for (int z = 0; z < 15; z++) {
-            for (int y = 0; y <= table_[x][z].height; y++) {
                 // Y座標を+1する
                 table_[x][z].height += 1;
-            }
         }
     }
 }
 
 void Stage::Downward()
 {
-    //for (int x = 0; x < 15; x++) {
-    //    for (int z = 0; z < 15; z++) {
-    //        for (int y = 0; y <= table_[x][z].height; y++) {
-    //                // Y座標を-1する
-    //                table_[x][z].height -= 1;
-    //        }
-    //    }
-    //}
+    for (int x = 0; x < 15; x++) {
+        for (int z = 0; z < 15; z++) {
+            if(table_[x][z].height != 0)
+                    // Y座標を-1する
+                    table_[x][z].height -= 1;
+        }
+    }
 }
 
 void Stage::Reset()
