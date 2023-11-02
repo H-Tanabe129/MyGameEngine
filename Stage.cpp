@@ -139,7 +139,6 @@ void Stage::Update()
                 }
                 if (data.hit && mode_ == 2)
                 {
-                    table_[x][z].type = ;
                     break;
                 }
             }
@@ -215,11 +214,11 @@ BOOL  Stage::DialogProc(HWND hDlg, UINT msg, WPARAM wp, LPARAM lp)
 
         //コンボボックスの初期値
         SendMessage(GetDlgItem(hDlg, IDC_COMBO2), CB_ADDSTRING, 0, (LPARAM)"デフォルト");
-        SendMessage(GetDlgItem(hDlg, IDC_COMBO2), CB_ADDSTRING, 0, (LPARAM)"レンガ");
+        SendMessage(GetDlgItem(hDlg, IDC_COMBO2), CB_ADDSTRING, 1, (LPARAM)"レンガ");
         SendMessage(GetDlgItem(hDlg, IDC_COMBO2), CB_ADDSTRING, 0, (LPARAM)"草原");
         SendMessage(GetDlgItem(hDlg, IDC_COMBO2), CB_ADDSTRING, 0, (LPARAM)"砂地");
         SendMessage(GetDlgItem(hDlg, IDC_COMBO2), CB_ADDSTRING, 0, (LPARAM)"水");
-        SendMessage(GetDlgItem(hDlg, IDC_COMBO2), CB_SETCURSEL, 0, 0);
+        SendMessage(GetDlgItem(hDlg, IDC_COMBO2), CB_SETCURSEL, 1, 0);
 
         return TRUE;
 
