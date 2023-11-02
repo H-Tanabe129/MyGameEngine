@@ -139,7 +139,7 @@ void Stage::Update()
                 }
                 if (data.hit && mode_ == 2)
                 {
-                    table_[x][z].type = select_;
+                    table_[x][z].type = ;
                     break;
                 }
             }
@@ -253,15 +253,6 @@ BOOL  Stage::DialogProc(HWND hDlg, UINT msg, WPARAM wp, LPARAM lp)
                 }
                 return TRUE;
             }
-
-            /*if (HIWORD(lp) == BN_CLICKED)
-            {
-                int comboBoxId = LOWORD(lp);
-                switch (comboBoxId)
-                {
-                case SendMessage(GetDlgItem(hDlg, IDC_COMBO2), CB_ADDSTRING, 0, (LPARAM)"デフォルト"):
-                }
-            }*/
     }
     return FALSE;
 }
